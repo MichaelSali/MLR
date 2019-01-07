@@ -23,9 +23,9 @@ X_NG <- cbind(x0 = rep(1,nrow(ex1data1)),x1 = X_NG)
 y_NG <- ex1data1$V2
 
 # run gradient descent to find optimal thetas
-min_J = gradient.descent(X_hp, Y, theta, alpha = 0.000000001, num_iters = 15000)
+min_J = gradient.descent(X_NG, y_NG, theta, alpha = 0.01, num_iters = 4000)
 # compare with linear regression function
-lin.reg.model <- lm(Y~X_hp[,2])
-lin.reg.model$coefficients
-#plot the linear regression model
-
+lin.reg.model <- lm(y_NG~X_NG[,2])
+coefs <- lin.reg.model$coefficients
+#plot the residuals of the linear regression model
+plot(lin.reg.model$residuals, pch = 16, col = "red")
