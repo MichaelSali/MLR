@@ -17,3 +17,12 @@ gradient.descent <- function(X,y,theta,alpha,num_iters){
   }
   return(list('min.theta' = theta,'J.history' = J_history))
 }
+
+feature.normalize <- function(x){
+  mu <- as.vector(summarize_all(x,mean), mode = 'numeric')
+  sigma <- as.vector(summarise_all(x,sd), mode = 'numeric')
+  x <- as.matrix(x)
+  x_norm <- sweep(x,2,mu)
+  x_norm <- sweep(x_norm,2, FUN = '/',sigma)
+  return(list('mean' = mu,'SD' = sigma, 'x_norm' = x_norm))
+}
