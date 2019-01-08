@@ -1,19 +1,20 @@
-compute.cost <- function(X,y,theta){
+compute.cost <- function(x,y,theta){
   m <- length(y)
   J <- 0
-  J <- sum((X%*%theta-y)^2)/(2*m)
+  J <- sum((x%*%theta-y)^2)/(2*m)
   return(J)
 }
 
-gradient.descent <- function(X,y,theta,alpha,num_iters){
+gradient.descent <- function(x,y,theta,alpha,num_iters){
   m <- length(y)
   J_history <- NULL
   for (i in 1:num_iters) {
-    delta_theta <- c(0,0)
-    delta_theta[1] <- sum((X%*%theta-y)*X[,1])*alpha/m
-    delta_theta[2] <- sum((X%*%theta-y)*X[,2])*alpha/m
+    delta_theta <- NULL  
+    err <- as.vector((x %*% theta - y),mode = 'numeric')
+    temp <- err * x
+    delta_theta <- alpha*colSums(temp)/m
     theta <- theta - delta_theta
-    J_history <- c(J_history,compute.cost(X, y, theta))
+    J_history <- c(J_history,compute.cost(x, y, theta))
   }
   return(list('min.theta' = theta,'J.history' = J_history))
 }
