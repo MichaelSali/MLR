@@ -13,7 +13,7 @@ cor(qsec,hp)
 X_hp <- hp
 X_hp <- cbind(x0 = rep(1,nrow(my_data)),x1 = X_hp)
 Y <- qsec
-theta <- c(0,0) # initialize thetas
+theta <- rep(0,ncol(X_hp)) # initialize thetas
 # some gradient descent settings
 iterations <- 1500
 alpha <- 0.01
