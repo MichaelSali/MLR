@@ -25,8 +25,9 @@ gradient.descent <- function(x,y,theta,alpha,num_iters){
 
 feature.normalize <- function(x){
   # normalizes the features so that all of them will have mean = 0 and sd = 1
-  mu <- as.vector(summarize_all(x,mean), mode = 'numeric')
+  mu <- colMeans(x)
   sigma <- as.vector(summarise_all(x,sd), mode = 'numeric')
+  # sigma <- matrixStats::colSds(as.matrix(x)) also works
   x <- as.matrix(x)
   x_norm <- sweep(x,2,mu)
   x_norm <- sweep(x_norm,2, FUN = '/',sigma)
