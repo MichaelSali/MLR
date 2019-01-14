@@ -26,6 +26,26 @@ y_NG <- ex1data1$V2
 min_J = gradient.descent(X_NG, y_NG, theta, alpha = 0.01, num_iters = 4000)
 # compare with linear regression function
 lin.reg.model <- lm(y_NG~X_NG[,2])
+#plot the regression
+plot(y_NG~X_NG[,2])
+abline(coef = coef(lin.reg.model))
 coefs <- lin.reg.model$coefficients
 #plot the residuals of the linear regression model
 plot(lin.reg.model$residuals, pch = 16, col = "red")
+
+#plot the cost function using surface plot
+library(plotly)
+df1 <- matrix(ncol = 200,nrow = 200)
+colnames(df1) <- seq(-10,9.9,0.1)
+row.names(df1) <- seq(-2,2.975,0.025)
+for (i  in 1:ncol(df1)) {
+  for (j in 1:nrow(df1)) {
+    theta0 <- as.double(colnames(df1)[i])
+    theta1 <- as.double(row.names(df1)[j])
+    theta <- c(theta0,theta1)
+    df1[j,i] <- compute.cost(X_NG,y_NG,theta)
+  }
+}
+x <- as.double(row.names(df1))
+y <- as.double(colnames(df1))
+plot_ly(x = x, y = y, z = df1, type = 'surface')
